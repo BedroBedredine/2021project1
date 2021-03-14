@@ -77,8 +77,12 @@ WSGI_APPLICATION = 'carezone.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'carzone_db',
+        'USER': 'postgres',
+        'PASSWORD': 'mokarno1991',
+        'HOST': 'localhost',
+        'PORT': '5433'
     }
 }
 
@@ -124,3 +128,5 @@ STATIC_ROOT =  'static'
 STATICFILES_DIRS = [
     BASE_DIR/ 'carezone/static',
 ]
+MEDIA_ROOT =  'media'
+MEDIA_URL = '/media/'
