@@ -1,5 +1,7 @@
 from django.db import models
 from datetime import datetime
+from ckeditor.fields import RichTextField
+from multiselectfield import MultiSelectField
 # Create your models here.
 class Car(models.Model):
     state_Choice = (
@@ -86,23 +88,25 @@ class Car(models.Model):
     
     car_title = models.CharField(max_length=255)
     state = models.CharField(choices=state_Choice, max_length=100)
+    city = models.CharField(max_length=100)
     color = models.CharField(max_length=100)
     model = models.CharField(max_length=100)
     year = models.IntegerField(('year'), choices=year_choice)
     conditions = models.CharField(max_length=100)
     price = models.CharField(max_length=100)
-    description = models.ImageField(upload_to='photo/%Y/%M/%D/', blank= True)
+    description = RichTextField()
+    car_photo = models.ImageField(upload_to='photo/%Y/%M/%D/')
     car_photo_1= models.ImageField(upload_to='photo/%Y/%M/%D/', blank= True)
     car_photo_2 = models.ImageField(upload_to='photo/%Y/%M/%D/', blank= True)
     car_photo_3 = models.ImageField(upload_to='photo/%Y/%M/%D/', blank= True)
     car_photo_4 = models.ImageField(upload_to='photo/%Y/%M/%D/', blank= True)
-    features = models.CharField(choices=features_choices, max_length=100)
+    features = MultiSelectField(choices=features_choices)
     body_stayle = models.CharField(max_length=100)
     engine = models.CharField(max_length=100)
     trnasmission = models.CharField(max_length=100)
     interior = models.CharField(max_length=100)
     miles = models.IntegerField()
-    doors = models.IntegerField(choices=door_choices)
+    doors = models.CharField(choices=door_choices, max_length=100)
     passengers = models.IntegerField()
     vin_no = models.CharField(max_length=100)
     milage = models.IntegerField()
@@ -110,3 +114,7 @@ class Car(models.Model):
     no_of_owners = models.CharField(max_length=100)
     is_featured = models.BooleanField(default=False)
     created_date = models.DateTimeField(default=datetime.now, blank=True)
+
+
+    def __str__(self):
+        return self.car_title
